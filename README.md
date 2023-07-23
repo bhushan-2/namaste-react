@@ -18,3 +18,21 @@ React Training Episodes
 - Support HTTPS
 - Tree Shaking (remove unused code)
 - Different build for dev & prod
+
+# Namaste Food Ordering Layout
+
+/**
+ * App Container
+ * - Header
+ *  - Logo
+ *  - Link (Contact Us, About Us, Card)
+ *
+ * - Body
+ *  - Search
+ *  - Restaurant Card (Image, Restaurant name, rating, couisine, rating, time)
+ *
+ * - Footer
+ *  - Copyright
+ *  - Address
+ *
+ */
