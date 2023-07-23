@@ -48,3 +48,28 @@
 .filter-restaurant {
     margin: 10px;
 }
+
+.shimmer-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shimmer-card {
+    height: 300px;
+    width: 150px;
+    background-color: #f0f0f0;
+    margin: 10px;
+}
+
+.login-btn {
+    padding: 0 10px;
+}
+
+.filter-restaurant {
+    display: flex;
+    margin: 10px 10px;
+}
+
+.filter-btn {
+    margin: 0 10px;
+}
