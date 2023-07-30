@@ -29,8 +29,12 @@ const Body = () => {
     );
   };
 
-  if(!isOnline) {
-    return (<div>Looks like you're offline, Please check your internect connection!!</div>)
+  if (!isOnline) {
+    return (
+      <div>
+        Looks like you're offline, Please check your internect connection!!
+      </div>
+    );
   }
 
   if (resList?.length === 0) {
@@ -39,10 +43,10 @@ const Body = () => {
 
   return (
     <div className="restaurant-container">
-      <div className="filter-restaurant">
-        <div className="search-container">
+      <div className="filter-restaurant flex items-center">
+        <div className="search-container p-4 m-4">
           <input
-            className="search-box"
+            className="search-box border py-1"
             type="text"
             value={searchText}
             onChange={(e) => {
@@ -50,6 +54,7 @@ const Body = () => {
             }}
           />
           <button
+            className="rounded-xm px-4 py-1 bg-slate-100 border"
             onClick={() => {
               let list = resList.filter((record) =>
                 record?.info?.name
@@ -62,9 +67,10 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
+       <div>
+       <button
           type="button"
-          className="filter-btn"
+          className="rounded-xm px-4 py-1 bg-slate-100 border"
           onClick={() => {
             resList = resList.filter((record) => record.info.avgRating > 4);
             setResList(resList);
@@ -72,8 +78,9 @@ const Body = () => {
         >
           Top rated restaurant
         </button>
+       </div>
       </div>
-      <div className="res-card-container">
+      <div className="res-card-container flex flex-wrap">
         {filteredList?.map((record) => (
           <Link
             key={record?.info?.id}
