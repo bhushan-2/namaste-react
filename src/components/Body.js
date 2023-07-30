@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { RESTUARANTS_URL } from "../utils/constants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   let [resList, setResList] = useState([]);
   let [filteredList, setFilteredList] = useState([]);
 
   let [searchText, setSearchText] = useState("");
+
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     fetchData();
@@ -25,6 +28,10 @@ const Body = () => {
       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  if(!isOnline) {
+    return (<div>Looks like you're offline, Please check your internect connection!!</div>)
+  }
 
   if (resList?.length === 0) {
     return <Shimmer />;

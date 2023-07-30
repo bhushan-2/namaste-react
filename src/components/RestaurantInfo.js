@@ -1,22 +1,13 @@
-import { useState, useEffect } from "react";
-import { MENU_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
+import useRestaurantInfo from "../utils/useRestaurantInfo";
 
 const RestaurantInfo = () => {
-  const [resDetails, setResDetails] = useState(null);
+//   const [resDetails, setResDetails] = useState(null);
 
   const { id } = useParams();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(MENU_URL + id);
-    const json = await data.json();
-    setResDetails(json.data);
-  };
+  const resDetails = useRestaurantInfo(id);
 
   if (resDetails === null) return <Shimmer />;
 
@@ -37,7 +28,7 @@ const RestaurantInfo = () => {
       <h4>{avgRating}</h4>
       <h4>Menu</h4>
       <ul>
-        {itemCards.map((record) => {
+        {itemCards?.map((record) => {
           return (
             <li key={record?.card?.info?.id}>
               {record?.card?.info?.name} - Rs.{record?.card?.info?.price / 100}
