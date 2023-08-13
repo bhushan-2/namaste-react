@@ -1,9 +1,10 @@
-import RestauCard from "./Restaurant";
-import { useState, useEffect } from "react";
+import RestauCard, { withLabelCard } from "./Restaurant";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { RESTUARANTS_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   let [resList, setResList] = useState([]);
@@ -12,6 +13,9 @@ const Body = () => {
   let [searchText, setSearchText] = useState("");
 
   const isOnline = useOnlineStatus();
+  const RestauCardWithLabel = withLabelCard(RestauCard);
+
+  const {userName, setUserName} = useContext(UserContext);
 
   useEffect(() => {
     fetchData();
@@ -67,18 +71,23 @@ const Body = () => {
             Search
           </button>
         </div>
-       <div>
-       <button
-          type="button"
-          className="rounded-xm px-4 py-1 bg-slate-100 border"
-          onClick={() => {
-            resList = resList.filter((record) => record.info.avgRating > 4);
-            setResList(resList);
-          }}
-        >
-          Top rated restaurant
-        </button>
-       </div>
+        <div>
+          <button
+            type="button"
+            className="rounded-xm px-4 py-1 bg-slate-100 border"
+            onClick={() => {
+              resList = resList.filter((record) => record.info.avgRating > 4);
+              setResList(resList);
+            }}
+          >
+            Top rated restaurant
+          </button>
+        </div>
+        <div>
+          <input className="rounded-xm px-4 py-1 bg-slate-100 border mx-4" value={userName} onChange={(e) =>{
+            setUserName(e.target.value);
+          }}/>
+        </div>
       </div>
       <div className="res-card-container flex flex-wrap">
         {filteredList?.map((record) => (
@@ -86,7 +95,11 @@ const Body = () => {
             key={record?.info?.id}
             to={"/restaurantInfo/" + record?.info?.id}
           >
-            <RestauCard resData={record?.info} />
+            {record.info.isOpen ? (
+              <RestauCardWithLabel resData={record?.info} />
+            ) : (
+              <RestauCard resData={record?.info} />
+            )}
           </Link>
         ))}
       </div>
